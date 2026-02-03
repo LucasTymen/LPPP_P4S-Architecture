@@ -364,6 +364,25 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
         .coordonnees-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; }
         .coordonnees-list a { color: var(--lp-primary, #4a9eff); text-decoration: none; font-weight: 500; }
         .coordonnees-list a:hover { text-decoration: underline; }
+        .coordonnees-email-trigger { color: var(--lp-primary, #4a9eff); text-decoration: none; font-weight: 500; cursor: pointer; }
+        .coordonnees-email-trigger:hover { text-decoration: underline; }
+
+        /* Popup contact email (fallback quand mailto: ne fonctionne pas) — affichage via :target */
+        .contact-modal { display: none; position: fixed; inset: 0; z-index: 9999; align-items: center; justify-content: center; padding: 1.5rem; box-sizing: border-box; }
+        .contact-modal:target { display: flex; }
+        .contact-modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); }
+        .contact-modal-content {
+            position: relative; max-width: 420px; width: 100%;
+            background: var(--lp-bg, #0d0d0d);
+            border: 1px solid var(--lp-border, rgba(255,255,255,0.12));
+            border-radius: 16px;
+            padding: 1.75rem 2rem;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+        }
+        .contact-modal-content p { margin: 0 0 1rem; color: var(--lp-text, #e6e6e6); line-height: 1.5; }
+        .contact-modal-email { font-weight: 600; color: var(--lp-primary, #4a9eff); user-select: all; }
+        .contact-modal-close { display: inline-block; margin-top: 0.5rem; color: var(--lp-primary, #4a9eff); text-decoration: none; font-weight: 500; }
+        .contact-modal-close:hover { text-decoration: underline; }
 
         .stack-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .stack-tag {
@@ -501,10 +520,7 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
             <a href="#stack">Stack</a>
             <a href="#offre">Offre</a>
             
-            <a href="#rapport">Consulter le rapport</a>
-            <a href="#prospects">Prospects</a>
-            <a href="#proposition">Proposition de valeur</a>
-            <a href="#qui-je-suis">Qui je suis</a>
+            <a href="rapport.html" target="_blank" rel="noopener noreferrer">Consulter le rapport</a>
             <a href="#coordonnees">Me contacter</a>
         </div>
     </nav>
@@ -513,17 +529,17 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
         <!-- Hero (Aérosection) : ton image en background 100 %, parallaxe (fixed), assombrissement 15 % — pas de scanlines -->
         <section class="hero has-bg-image" style="background-image: url('https://cdn.prod.website-files.com/66f985365375b390de87e273/66fa4fa81421b08ecc353183_Frame%203372347.avif');">
             
-            <h1>Automatisez 80% de votre Lead Gen Cyber sans recruter</h1>
-            <p class="hero-sub">Infrastructure Python + Stratégie Growth</p>
+            <h1>Joël, suite à notre échange — ce que je peux faire pour P4S</h1>
+            <p class="hero-sub">Pour P4S — Joël</p>
             
             
-            <a href="#coordonnees" class="cta">Réserver mon Diagnostic Flash (15 min)</a>
+            <a href="#contact-email-modal" class="cta">Reprendre la conversation</a>
             
             
         </section>
 
-        <p class="icebreaker">Nous nous sommes rencontrés au salon Cyber Security Show à Champerret. Nous avons parlé technologie ; en tant que développeur et intéressé par l&#x27;IoT, la conversation s&#x27;est bien établie. J&#x27;ai apprécié votre écoute attentive, votre contact chaleureux, et en tant que geek concerné par la cybersécurité, la pertinence et la force de vos produits.</p>
-        <p class="icebreaker">Joël, suite à notre échange au Cyber Security Show — ce que je peux faire pour P4S</p>
+        
+        
 
         
         <section class="section" id="enjeux">
@@ -547,20 +563,13 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
         
 
         
-        <!-- Ancres pour liens nav (page statique) -->
-        <span id="rapport"></span><span id="prospects"></span><span id="proposition"></span><span id="qui-je-suis"></span>
         <section class="section" id="services">
             <div class="section-head"><span class="section-num">03</span><h2>Ce que j'offre</h2></div>
+            
             <div class="rapport-cta-block">
-                <a href="#rapport" class="rapport-cta-link">Consulter le rapport complet (société, stratégie, SEO) →</a>
+                <a href="rapport.html" class="rapport-cta-link" target="_blank" rel="noopener noreferrer">Consulter le rapport complet (société, stratégie, SEO) →</a>
             </div>
-            <p class="services-annexes">
-                <a href="#rapport">Rapport complet</a>
-                <span class="sep">·</span>
-                <a href="#prospects">Prospects</a>
-                <span class="sep">·</span>
-                <a href="#proposition">Proposition de valeur</a>
-            </p>
+            
             <div class="services-tabs">
                 
                 <input type="radio" name="services-tab" id="service-0" checked>
@@ -575,20 +584,15 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
                 <input type="radio" name="services-tab" id="service-3" >
                 <label for="service-3">Automatisations et workflows</label>
                 
-                <input type="radio" name="services-tab" id="service-4" >
-                <label for="service-4">Autres livrables</label>
-                
                 <div class="services-panels">
                     
                     <div class="services-panel"><h3>Rapport SEO</h3><p>Analyse de votre visibilité et de celle de vos concurrents (mots-clés, backlinks, opportunités). Livrable actionnable pour prioriser les actions acquisition.</p></div>
                     
-                    <div class="services-panel"><h3>Paid Media (Google Ads, Meta Ads)</h3><p>Acquisition payante B2B : structuration de comptes, mots-clés, annonces, pilotage CPC / CPA / ROAS. Génération de leads qualifiés, pas du trafic vanity. Proposition en prix récupérateur adaptée à vos besoins (budget, objectifs, périmètre).</p></div>
+                    <div class="services-panel"><h3>Paid Media (Google Ads, Meta Ads)</h3><p>Acquisition payante B2B : structuration de comptes, mots-clés, annonces, pilotage CPC / CPA / ROAS. Proposition en prix récupérateur adaptée à vos besoins.</p></div>
                     
-                    <div class="services-panel"><h3>Échantillon de prospects</h3><p>Liste qualifiée de décideurs (industrie, médical, gouvernement) alignée sur votre cible : contacts, postes, entreprises. Pour tester votre message sans déployer une campagne complète.</p></div>
+                    <div class="services-panel"><h3>Échantillon de prospects</h3><p>Liste qualifiée de décideurs (industrie, médical, gouvernement) alignée sur votre cible. Pour tester votre message sans déployer une campagne complète.</p></div>
                     
-                    <div class="services-panel"><h3>Automatisations et workflows</h3><p>Pipelines de données (veille cyber, enrichissement, scoring) adaptés à vos besoins. Gouvernance et scalabilité intégrées. À définir ensemble après le Diagnostic Flash.</p></div>
-                    
-                    <div class="services-panel"><h3>Autres livrables</h3><p>Études ciblées (PESTEL, concurrence, SWOT), scripts de qualification, intégrations n8n/Make. À définir en fonction des besoins identifiés.</p></div>
+                    <div class="services-panel"><h3>Automatisations et workflows</h3><p>Pipelines de données (veille cyber, enrichissement, scoring) adaptés à vos besoins. Gouvernance et scalabilité intégrées.</p></div>
                     
                 </div>
             </div>
@@ -625,7 +629,7 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
             <div class="section-head"><span class="section-num">05</span><h2>Mission Flash</h2></div>
             <div class="mission-flash">
                 <p class="tag-line">Offre pour vous</p>
-                <p>Audit technique de 48h : j&#x27;identifie 3 leviers d&#x27;automatisation immédiats pour P4S Architecture. Sans engagement, juste pour voir si on peut avancer ensemble sur la partie acquisition et évangélisation.</p>
+                <p>J&#x27;ai préparé une petite étude (concurrence, PESTEL, SWOT, Porter) pour cadrer le contexte. Si l&#x27;angle vous parle, je serais ravi d&#x27;en discuter autour d&#x27;un café ou d&#x27;un appel — sans engagement, juste pour voir si on peut avancer ensemble sur la partie acquisition et évangélisation.</p>
             </div>
         </section>
         
@@ -646,7 +650,7 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
             <div class="card">
                 <p class="coordonnees-intro">Pour échanger ou planifier un Diagnostic Flash, retrouvez mes coordonnées ci-dessous.</p>
                 <ul class="coordonnees-list">
-                    <li><a href="mailto:lucas.tymen@gmail.com?subject=Diagnostic Flash P4S — 15 min" target="_blank" rel="noopener noreferrer">Gmail</a></li>
+                    <li>Gmail : <span class="coordonnees-email" style="user-select:all">lucas.tymen@gmail.com</span></li>
                     <li><a href="https://www.linkedin.com/in/lucas-tymen-310255123/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
                     <li><a href="https://github.com/LucasTymen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                     <li><a href="https://linktr.ee/lucas.tymen" target="_blank" rel="noopener noreferrer">Linktree</a></li>
@@ -658,10 +662,20 @@ body.lp-perso-style .mission-flash { animation: lp-glow-pulse 4s ease-in-out inf
         
         
         <div class="cta-wrap">
-            <a href="#coordonnees" class="cta">Réserver mon Diagnostic Flash (15 min)</a>
+            <a href="#contact-email-modal" class="cta">Reprendre la conversation</a>
         </div>
         
         
     </main>
+
+    
+    <div id="contact-email-modal" class="contact-modal" aria-hidden="true">
+        <a href="#" class="contact-modal-overlay" aria-label="Fermer"></a>
+        <div class="contact-modal-content">
+            <p>Vous pouvez me contacter par Mail à cette adresse : <span class="contact-modal-email">lucas.tymen@gmail.com</span></p>
+            <a href="#" class="contact-modal-close">Fermer</a>
+        </div>
+    </div>
+    
 </body>
 </html>
